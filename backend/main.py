@@ -10,7 +10,10 @@ from database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
+origins = [
+    "http://localhost:5173",
+    
+]
 # Allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
