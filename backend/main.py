@@ -4,7 +4,7 @@ from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 import models
 import schemas
-from .database import SessionLocal, engine
+from database import SessionLocal, engine
 
 # Create DB tables
 models.Base.metadata.create_all(bind=engine)
