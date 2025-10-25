@@ -7,24 +7,24 @@ interface Project {
   description: string;
   link: string;
 }
-
+const API_URL = import.meta.env.VITE_API_URL;
 // 👇 2️⃣ Component
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/projects/") // 👈 note the trailing slash (important in FastAPI)
-      .then((res) => res.json())
-      .then((data: Project[]) => {
-        setProjects(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching projects:", err);
-        setLoading(false);
-      });
-  }, []);
+ useEffect(() => {
+  fetch(`${API_URL}/projects/`) // ✅ use deployed backend URL from env
+    .then((res) => res.json())
+    .then((data: Project[]) => {
+      setProjects(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching projects:", err);
+      setLoading(false);
+    });
+}, []);
 
   // 👇 3️⃣ Safe helper for text truncation
   const truncateText = (text: string | null | undefined, maxLength: number): string => {
